@@ -14,18 +14,18 @@ class Usuarios {
         };
         // la funcion push es una funcion para arreglos que lo que haces es que metemos un arreglo al arreglo
         this.persona.push(persona);
-        return this.personas;
+        return this.persona;
     }
 
     getPersona(id) {
         // la funcion filter es un funcion de arreglos que lo que hace es que devuelve un nuevo arreglo depediendo del la condicion que le pngamos abajo
         // en este caso queremos que nos devuelva un arreglo con dependiendo del id que le mandemos en la condicion, en la primera poscicion por eso le ponemos el 0 al final, 
-        let persona = this.personas.filter(persona => persona.id === id)[0];
+        let persona = this.persona.filter(persona => persona.id === id)[0];
         return persona;
     }
 
     getPersonas() {
-        return this.personas;
+        return this.persona;
     }
 
     getPersonasPorSalas(sala) {
@@ -34,10 +34,10 @@ class Usuarios {
 
     // Necesitamos borrar un arreglo del conjunto de arreglos, en este caso eso lo hacemos con un filter
     borrarPersona(id) {
-        let personaBorrada = this.getPersonas(id);
+        let personaBorrada = this.getPersona(id);
         // como sabemos el filter nos devuelve un nuevo arreglo dependiendo de la condicion que le pongamos,
         // en este caso le estamos diciendo devuelvenos todos los arreglos que son diferentes a id que estamos recibiendo.
-        this.persona = this.personas.filter(persona => persona.id != id);
+        this.persona = this.persona.filter(persona => persona.id != id);
         return personaBorrada;
     }
 }
