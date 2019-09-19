@@ -6,6 +6,10 @@ const {
     Usuarios
 } = require('../classes/usuarios');
 
+const {
+    crearMensaje
+} = require('../utilidades/utilidades');
+
 // Estamos creando una instancia de un objeto de tipo Usuarios()
 const usuarios = new Usuarios();
 
@@ -34,6 +38,22 @@ io.on('connection', (client) => {
         client.broadcast.emit('listarPersonas', usuarios.getPersonas());
     });
 
+
+    //*******************************
+    // ESTA PARTE ES CUANDO UNA SE ENVIA UN MENSAJE A GENERAL
+    //*******************************
+    client.on('crearMensaje', (data) => {
+        let persona = usuarios.getPersona(cleint.id);
+        let mensaje = crearMensaje(persona.nombre, data.mensaje);
+        client.broadcast.emit('crearMensaje', mensaje);
+    });
+
+
+
+    //*******************************
+    // ESTA PARTE ES CUANDO UNA SE ENVIA UN MENSAJE A GENERAL
+    //*******************************
+
     // Como hemos venido diciendo la funcion on es para escuchar, y aqui estamos eschcuando el evento disconnect 
     // El evento disconnect se desencadena cuando un cliente se desconecta, 
     client.on('disconnect', () => {
@@ -44,10 +64,9 @@ io.on('connection', (client) => {
         // Para enviar un msj a todos los usuarios es de la siguiente forma, usamos el broadcast que quiere decir un msj msj para todo el mundo y seguido de la funcioon emit que es la funciond e envio de msj
         // Ponemos el nombre del evento y el segundo parametro es un objeto o la informacion que nosotros queremos que se envie.
         // Como el emit es un metodo del emitir un msj alguien tiene que esucharlo en el frontend y se esucha con un on
-        client.broadcast.emit('crearMensaje', {
-            usuario: 'Administrador',
-            mensaje: `${ personaBorrada.nombre } abando el chat`
-        });
+        // aqui empezaremos a usar la funcion llamada crearMensajes que esta en utilidades,
+        // esta funcion de crearMensaje, recibe 3 parametros el primero, es el nombre y el segundo es el mensaje, al final todo lo devulve como un objeto,
+        client.broadcast.emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salio`));
 
 
         // cuando una persona se conecta al chat, estamos emitiendo este msj, listarPersonas, que lo que envia en este caso es lo que devuelve el metodo getPersonas

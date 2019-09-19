@@ -39,12 +39,12 @@ socket.on('disconnect', function () {
 });
 
 // Enviar información
-socket.emit('enviarMensaje', {
+/* socket.emit('enviarMensaje', {
     usuario: 'Fernando',
     mensaje: 'Hola Mundo'
 }, function (resp) {
     console.log('respuesta server: ', resp);
-});
+}); */
 
 // Escuchar información
 // en esta parte estamos escuchando el evento crearMensaje que lo que nos envia desde el backend, es el nombre y el msj de la persona que se desconecto del chat o de nuestro servidor
